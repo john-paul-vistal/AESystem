@@ -63,7 +63,7 @@
         </form>
     </nav>
     <!-- Side Navigation -->
-    <nav class="w3-sidebar w3-collapse w3-white w3-animate-left shadow-sm" style="z-index:3;width:180px;position: relative;top: 65px;" id="mySidebar"><br>
+    <nav class="w3-sidebar w3-collapse w3-white w3-animate-left shadow-sm" style="z-index:3;width:220px;position: relative;top: 65px;" id="mySidebar"><br>
             <div class="text-center mb-1">
                 <a style = "position:absolute;right:2px;padding:5px 10px 5px;margin-top:-18px" href="#" onclick="w3_close()" class="w3-hide-large w3-hover-blue" title="close menu">
                     <i class="fa fa-remove w3-large"></i>
@@ -72,15 +72,27 @@
                 <h6><b>CTU</b><br><span style="font-size:13px">Management Information System</span></h6>
         </div>
         <div class="w3-bar-block">
-            <a href="#portfolio" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>DASHBOARD</a>
-            <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-group fa-fw w3-margin-right"></i>WORKERS</a>
-            <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-gear fa-fw w3-margin-right"></i>SETTINGS</a>
+            <button  onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>DASHBOARD</button> 
+            <button class="collapse w3-bar-item w3-button w3-padding" data-toggle="collapse" data-target="#transact"><i class="fa fa-tasks fa-fw w3-margin-right"></i>TRANSACTION</i><i style = "float:right" class = "fa fa-angle-down"></i></button>
+                <ul class="sub-menu collapse bg-secondary text-white" id="transact" style = "padding-left:15px">
+                  <a style = "text-decoration:none" href="#" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fa fa-angle-right fa-fw"></i>ENROLLMENT</a>
+                  <a style = "text-decoration:none" href="#" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fa fa-angle-right fa-fw"></i>SCHEDULE</a>
+                </ul>
+            <button class="collapse w3-bar-item w3-button w3-padding" data-toggle="collapse" data-target="#dataentry"><i class="fa fa-file-alt fa-fw w3-margin-right"></i>DATA ENTRY</i><i style = "float:right" class = "fa fa-angle-down"></i></button>
+                <ul class="sub-menu collapse bg-secondary text-white" id="dataentry" style = "padding-left:15px;">
+                  <a style = "text-decoration:none" href="dataEntry/student.php" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fa fa-angle-right fa-fw"></i>STUDENT</a>
+                  <a style = "text-decoration:none" href="#" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fa fa-angle-right fa-fw"></i>TEACHER</a>
+                  <a style = "text-decoration:none" href="#" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fa fa-angle-right fa-fw"></i>SUBJECT</a>
+                </ul>
+            <button href="#about" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-gear fa-fw w3-margin-right"></i>MAINTAINANCE</button>
+            <button href="#about" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fas fa-archive fa-fw w3-margin-right"></i>RECORDS</button>
+            <button href="#about" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-wrench fa-fw w3-margin-right"></i>SETTINGS</button>
         </div>
     </nav>
     <!-- Overlay effect when opening sidebar on small screens -->
     <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 
-    <div class="w3-main" style="margin-left:175px;">
+    <div class="w3-main" style="margin-left:215px;">
         <!-- Header Start's Here -->
         <header id="portfolio" class="ml-3">
             <span class="element w3-hover-blue w3-hide-large w3-xlarge w3-text-white bg-dark shadow-lg px-3 pl-4 py-1-sm" style="position: absolute;margin-top:-8px;z-index: 1;margin-left: -20px ;border-radius:0px 90px 90px 0px" onclick="w3_open()"><i class="fa fa-bars"></i></span>
@@ -88,83 +100,31 @@
 
         <!-- Body Start's Here -->
         <div class="container" style="margin-top:80px;">
-            <div class="container w3-white shadow" style="height:810px;background:url(../src/icon/logomis.png);background-repeat:no-repeat;background-position:center;background-size:700px">
+            <div class="container w3-white shadow" style="height:810px;background:url(../src/icon/logomis.png);background-repeat:no-repeat;background-position:center;background-size:650px">
                 <div class="container-fluid">
                     <br>
-                    <h3 class="my-2"><i class="fa fa-bars"></i> MAIN MENU</h3>
+                    <h3 class="my-2">MAIN DASHBOARD</h3>
                     <br>
                 </div>
                 <div class="row">
-                    <div class="col-sm w3-animate-zoom mb-2">
-                        <div class="card bg-info text-center">
-                            <button class="btn btn-info m-2 shadow-lg">
-                                    <a href="enrollment/enrollmentform.php">
-                                    <div class="card-body">
-                                    <i style = "font-size: 120px;"class = "fas fa-file-alt text-dark"></i>
-                                    </div>
-                                        <h5 class="card-footer">ENROLLMENT FORM</h5>
-                                    </a>   
-                            </button>
-
-                        </div>
-                    </div>
-                    <div class="col-sm w3-animate-zoom mb-2">
-                        <div class="card bg-warning text-center">
-                            <button class="btn btn-warning m-2 shadow-lg">
-                                            <div class="card-body">
-                                                <i style = "font-size: 120px;"class = "fa fa-line-chart text-dark"></i>
-                                            </div>
-                                            <h5 class="card-footer">ENROLLMENT RECORDS</h5>
-                                    </button>
-
-                        </div>
-                    </div>
-                    <div class="col-sm w3-animate-zoom">
-                        <div class="card bg-primary text-center">
-                            <button class="btn btn-primary m-2 shadow-lg">
-                                            <div class="card-body">
-                                                    <i style = "font-size: 120px;"class = "fas fa-hand-holding-usd text-dark"></i>
-                                            </div>
-                                            <h5 class="card-footer">PAYMENT</h5>
-                                    </button>
-
-                        </div>
-                    </div>
+                    <?php
+                    $bg = array("bg-info","bg-success", "bg-primary","bg-warning");
+                    $values = array("0","0","2020-2021","0");
+                    $title = array("TOTAL STUDENTS","TOTAL ENROLLED","SCHOOL YEAR","TOTAL TEACHER");
+                    $icon = array("fa-group","fa-file-alt","fa-calendar-alt","fa-chalkboard-teacher");
+                        for($i = 0;$i < 4;$i++){
+                            echo "
+                            <div class='col-sm w3-animate-zoom mb-2'>
+                            <div class='card  $bg[$i] text-center' style = 'height:190px'>
+                                <p class = 'text-white' style = 'font-size: 37px;margin-top:55px'>$values[$i]</p>
+                                <h6 style = 'margin-top:15px'> <i class = 'fa $icon[$i]'></i>&nbsp;&nbsp;$title[$i]</h6> 
+                            </div>
+                           </div>
+                            ";
+                        }
+                    ?>
                 </div>
                 <br>
-                <div class="row">
-                    <div class="col-sm w3-animate-zoom mb-2">
-                        <div class="card bg-secondary text-center">
-                            <button class="btn btn-secondary m-2 shadow-lg">
-                                    <div class="card-body">
-                                    <i style = "font-size: 120px;"class = "fa fa-question text-dark"></i>
-                                    </div>
-                                            <h5 class="card-footer">COMING SOON</h5>       
-                            </button>
-
-                        </div>
-                    </div>
-                    <div class="col-sm w3-animate-zoom mb-2">
-                        <div class="card bg-secondary text-center">
-                            <button class="btn btn-secondary m-2 shadow-lg">
-                                            <div class="card-body">
-                                                <i style = "font-size: 120px;"class = "fa fa-question text-dark"></i>
-                                            </div>
-                                            <h5 class="card-footer">COMING SOON</h5>
-                             </button>
-                        </div>
-                    </div>
-                    <div class="col-sm w3-animate-zoom mb-2">
-                        <div class="card bg-secondary text-center">
-                            <button class="btn btn-secondary m-2 shadow-lg">
-                                            <div class="card-body">
-                                                <i style = "font-size: 120px;"class = "fa fa-question text-dark"></i>
-                                            </div>
-                                            <h5 class="card-footer">COMING SOON</h5>
-                             </button>
-                        </div>
-                    </div>  
-                </div>
             </div>
         </div>
 

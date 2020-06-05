@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>CTU Enrollment</title>
+    <title>CTU DATA ENTRY</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
     </script>
@@ -62,12 +62,12 @@
         </form>
     </nav>
     <!-- **************************************************************************** -->
-    <div class="container-fluid bg-gradient-blue shadow-lg w3-animate-zoom" style="margin-top:60px;">
+    <div class="container-fluid bg-gradient-blue shadow-lg w3-animate-zoom" style="margin-top:90px;">
         <form action="dashprocess.php" method="POST">
             <div>
                 <div>
                     <br>
-                    <h2>ENROLLMENT FORM</h3>
+                    <h2>DATA ENTRY FORM</h3>
                         <hr style="background-color:black;height:1px;margin-top: 30px">
                 </div>
                 <div class="container-fluid">
@@ -158,13 +158,13 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <!-- <div class="container-fluid ">
                     <hr style="background-color:black;height:1px; margin-top: 10px;">
                     <hr style="background-color:black;height:1px;margin-top: -10px ">
                     <div class="text-center " style="width:150px;margin-left: 15px ">
                         <p class="bg-white " style="margin-top:-30px ">ACADENIC INFO</p>
                     </div>
-                </div>
-                <div class="container-fluid ">
                     <div class="row">
                         <div class="col-md-2 border border-secondary shadow">
                             <span> <strong>Requirements</strong></span>
@@ -239,7 +239,7 @@
                         </div>
                     </div>
 
-                </div>
+                </div> -->
             </div>
             <div class="d-flex justify-content-end mt-3">
                 <button type="submit" name="save" class="btn btn-success btn-lg mx-3 shadow"><span class="fa fa-check "></span> ENROLL</button>
