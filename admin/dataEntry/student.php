@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="../../src/css/w3css.css">
     <link rel="stylesheet" href="../../src/css/main.css">
     <link rel="icon" href="../../src/icon/logo.png">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="sweetalert2.all.min.js"></script>
 
 </head>
 
@@ -26,6 +28,7 @@
     <?php
     $mysqli = new mysqli('localhost','root','','enrollmentsystem') or die(mysqli_error($msqli));
     $result = $mysqli->query("SELECT * FROM student") or die($mysqli->error);
+    session_start();
     ?>
 
         <!-- Navigation Header -->
@@ -80,7 +83,7 @@
                 <a style="text-decoration:none" href="../dashboard.php"><button class="w3-bar-item w3-button w3-padding"><i class="fa fa-th-large fa-fw w3-margin-right"></i>DASHBOARD</button></a>
                 <button class="collapse w3-bar-item w3-button w3-padding" data-toggle="collapse" data-target="#transact"><i class="fa fa-tasks fa-fw w3-margin-right"></i>TRANSACTION</i><i style = "float:right" class = "fa fa-angle-down"></i></button>
                 <ul class="sub-menu collapse bg-secondary text-white" id="transact" style="padding-left:15px">
-                    <a href="#" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fa fa-angle-right fa-fw"></i>ENROLLMENT</a>
+                    <a href="../enrollmentModule/enrollment.php" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fa fa-angle-right fa-fw"></i>ENROLLMENT</a>
                     <a href="#" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fa fa-angle-right fa-fw"></i>SCHEDULE</a>
                 </ul>
                 <button class="collapse w3-bar-item w3-button w3-padding w3-text-teal" data-toggle="collapse" data-target="#dataentry"><i class="fa fa-file-alt fa-fw w3-margin-right"></i>DATA ENTRY</i><i style = "float:right" class = "fa fa-angle-down"></i></button>
@@ -105,7 +108,7 @@
 
             <!-- Body Start's Here -->
 <div class="container" style="margin-top:80px;">
-    <div class="container w3-white shadow" style="height:810px;">
+    <div class="container w3-white shadow" style="height:100%">
         <div class="container-fluid">
             <br>
             <h3 class="my-2">STUDENT RECORDS</h3>
@@ -128,31 +131,40 @@
                 </div>
 
                 <div class="mb-2 shadow-sm bg-white">
-                    <div id="no-more-tables" style="overflow-y:scroll;height: 640px;">
-                        <table id="studentTable" class="table table-bordred table-hover" style="margin-top:0px;">
-                            <thead class="bg-dark text-white">
-                                <tr style="font-size:13px">
-                                    <th>LRN</th>
+                    <div id="no-more-tables" style="overflow-y:scroll;">
+                        <table id="studentTable" class="w3-table mb-4" style="margin-top:0px;">
+                            <thead class="bg-dark text-white ">
+                                <tr style="font-size:13px;">
+                                    <th>ID</th>
                                     <th>NAME</th>
-                                    <th>BIRTH DATE</th>
                                     <th>AGE</th>
                                     <th>GENDER</th>
-                                    <th>BITRH PLACE</th>
+                                    <th>BIRTH DATE</th>
                                     <th>CITIZENSHIP</th>
+                                    <th>MOBILE NUMBER</th>  
                                     <th>ACTIONS</th>
                                 </tr>
                             </thead>
-                            <tbody style="font-size:16px;font-family:Courier New">
+                            <tbody style="font-size:15.5px;font-family:Courier New">
                                 <?php while($row = $result->fetch_assoc()):?>
-                                <tr>
-                                    <td style="display:none;" data-title="ID #"><?php echo $row['id']?></td>
-                                    <td data-title="LRN"><?php echo $row['lrn']?></td>
-                                    <td data-title="NAME"><?php echo $row['lname']?>,<?php echo $row['fname']?><?php echo substr($row['mname'],0,1)?>.</td>
-                                    <td data-title="BIRTH DATE"><?php echo $row['birthdate']?></td>
+                                <tr class = "w3-hover-blue">
+                                
+                                    <td data-title="ID #"><?php echo $row['id']?></td>
+                                    <td data-title="NAME"><?php echo $row['lname']?>,<?php echo $row['fname']?>&nbsp;<?php echo substr($row['mname'],0,1)?>.</td>
                                     <td data-title="AGE"><?php echo $row['age']?></td>
                                     <td data-title="GENDER"><?php echo $row['gender']?></td>
-                                    <td data-title="BITRH PLACE"><?php echo $row['birthplace']?></td>
+                                    <td data-title="BIRTH DATE"><?php echo $row['birthdate']?></td>
                                     <td data-title="CITIZENSHIP"><?php echo $row['nationality']?></td>
+                                    <td  data-title="MOBILE NUMBER"><?php echo $row['number']?></td>
+                                    <td style = "display:none"><?php echo $row['fname']?></td>
+                                    <td style = "display:none"><?php echo $row['lname']?></td>
+                                    <td style = "display:none"><?php echo $row['mname']?></td>
+                                    <td style = "display:none"><?php echo $row['lrn']?></td>
+                                    <td style = "display:none"><?php echo $row['image']?></td>
+                                    <td style = "display:none"><?php echo $row['email']?></td>
+                                    <td style = "display:none"><?php echo $row['guardian']?></td>
+                                    <td style = "display:none"><?php echo $row['address']?></td>
+                                    <td style = "display:none"><?php echo $row['birthplace']?></td>
                                     <td data-title="ACTIONS">
                                         <p class="view inline" data-placement="top" data-toggle="tooltip" title="View"><button class="btn-primary px-1" data-title="Edit" data-toggle="modal" data-target="#view"><span class="fa fa-eye"></span></button></p>
                                         <p type="button" class="inline delete" data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn-danger px-1" data-title="Delete" data-toggle="modal" data-target="#delete"><i class="fa fa-trash "></i></button></p>
@@ -176,10 +188,10 @@
                     <h4 class="modal-title custom_align" id="Heading">STUDENT DATA ENTRY FORM</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="fa fa-close" aria-hidden="true"></span></button>
                 </div>
-                    <form action="dashprocess.php" method="POST">
+                    <form action="studententry.php" method="POST">
                     <div>
                         <div>
-                                <hr style="background-color:black;height:1px;margin-top: -1px">
+                            <hr style="background-color:black;height:1px;margin-top: -1px">
                         </div>
                         <div class="container-fluid">
                             <div class="row">
@@ -196,44 +208,36 @@
                                         <p class="bg-light " style="margin-top:-30px ">STUDENT INFO</p>
                                     </div>
                                     <div class="form-row ">
-                                        <div class="col-md mb-3">
+                                        <div class="col-md-4 mb-3">
                                             <span>LRN</span>
-                                            <input name="guardian " type="text" class="form-control shadow" placeholder="LRN" value="" required>
-                                        </div>
-                                        <div class="col-md mb-3 ">
-                                            <span>Student Type</span>
-                                            <select name="type" class="custom-select mr-sm-2 shadow">
-                                            <option selected>........</option>
-                                            <option value="JHS">JHS</option>
-                                            <option value="SHS">SHS</option>
-                                            </select>
+                                            <input name="lrn" type="text" class="form-control shadow" placeholder="LRN" value="" required>
                                         </div>
                                     </div>
                                     <div class="form-row ">
                                         <div class="col-md mb-3">
                                             <span>First Name</span>
-                                            <input name="guardian " type="text" class="form-control shadow" placeholder="First Name" value="" required>
+                                            <input name="fname" type="text" class="form-control shadow" placeholder="First Name" value="" required>
                                         </div>
                                         <div class="col-md mb-3 ">
                                             <span>Last Name</span>
-                                            <input name="guardian " type="text" class="form-control shadow" placeholder="Last Name" value="" required>
+                                            <input name="lname" type="text" class="form-control shadow" placeholder="Last Name" value="" required>
                                         </div>
                                         <div class="col-md mb-3 ">
                                             <span>Middle Name</span>
-                                            <input name="guardian " type="text" class="form-control shadow" placeholder="Middle Name" value="" required>
+                                            <input name="mname" type="text" class="form-control shadow" placeholder="Middle Name" value="" required>
                                         </div>
                                     </div>
                                     <div class="form-row ">
                                         <div class="col-md-3 mb-3 ">
                                             <span>Age</span>
-                                            <input name="guardian" type="text" class="form-control shadow" placeholder="Age" value="" required>
+                                            <input name="age" type="text" class="form-control shadow" placeholder="Age" value="" required>
                                         </div>
                                         <div class="col-md-4 mb-3">
                                             <span>Gender</span>
                                             <select name="gender" class="custom-select mr-sm-2 shadow">
                                             <option selected>........</option>
-                                            <option value="Male">Male</option>
-                                            <option value="Female">Female</option>
+                                            <option value="MALE">MALE</option>
+                                            <option value="FEMALE">FEMALE</option>
                                             </select>
                                         </div>
                                         <div class="col-md mb-3 ">
@@ -244,21 +248,21 @@
                                     <div class="form-row ">
                                         <div class="col-md mb-3 ">
                                             <span>Address</span>
-                                            <input name="guardian " type="text " class="form-control shadow" placeholder="Address" value="" required>
+                                            <input name="address" type="text " class="form-control shadow" placeholder="Address" value="" required>
                                         </div>
                                         <div class="col-md-5 mb-3 ">
                                             <span>Nationality</span>
-                                            <input name="guardian " type="text " class="form-control shadow" placeholder="Nationality" value="" required>
+                                            <input name="nationality" type="text " class="form-control shadow" placeholder="Nationality" value="" required>
                                         </div>
                                     </div>
                                     <div class="form-row ">
                                         <div class="col-md mb-3">
                                             <span>Birth Place</span>
-                                            <input name="guardian " type="text " class="form-control shadow" placeholder="Birth place" value="" required>
+                                            <input name="bplace" type="text " class="form-control shadow" placeholder="Birth place" value="" required>
                                         </div>
                                         <div class="col-md mb-3">
                                             <span>Guardian</span>
-                                            <input name="guardian " type="text " class="form-control shadow" placeholder="Guardian" value="" required>
+                                            <input name="guardian" type="text " class="form-control shadow" placeholder="Guardian" value="" required>
                                         </div>
                                     </div>
                                     <div class="form-row mb-4">
@@ -274,10 +278,10 @@
                                         <div class="col-md mb-2">
                                             <span>Phone Number</span>
                                             <div class="input-group">
-                                                <div class="input-group-prepend ">
-                                                    <div class="input-group-text "><i class="fa fa-phone"></i></div>
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text"><i class="fa fa-phone"></i></div>
                                                 </div>
-                                                <input name="number" type="text " class="form-control shadow" placeholder="Mobile Number">
+                                                <input name="number" type="text" class="form-control shadow" placeholder="Mobile Number">
                                             </div>
                                         </div>
                                     </div>
@@ -307,7 +311,7 @@
                             <h4 class="modal-title custom_align" id="Heading">STUDENT'S INFORMATION</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="fa fa-close" aria-hidden="true"></span></button>
                         </div>
-                                <form action="dashprocess.php" method="POST">
+                    <form action="studententry.php" method="POST">
                                 <div>
                                 <div>
                                 <hr style="background-color:black;height:1px;margin-top: -1px">
@@ -316,80 +320,77 @@
                                         <div class="row">
                                             <div class="col-sm-3">
                                                 <div class="text-center">
-                                                    <img src="../../src/icon/profileiconctu.png" class="avatar img-circle img-thumbnail" style="width:350px;height:300px" alt="avatar">
-                                                    <label for="imageUpload" class="btn btn-secondary btn-block">Select Image</label>
-                                                    <input name="imageUpload" id="imageUpload" class="file-upload" style="visibility:hidden;" type="file" accept="image/*">
+                                                    <img src="../../src/icon/profileiconctu.png" class="viewavatar img-circle img-thumbnail" style="width:350px;height:300px" alt="avatar">
+                                                    <label for="updateImage" class="btn btn-secondary btn-block">Update Image</label>
+                                                    <input name="imageUpdate" id="updateImage" class="file-upload" style="visibility:hidden;" type="file" accept="image/*">
+                                                    <input type="hidden" name="oldimage" id="oldimage">
                                                 </div>
                                             </div>
                                             <div class="col-md" style="margin-left:-5px;">
                                                 <hr style=" background-color:black;height:1px;margin-top: -10px">
-                                                <div class="text-center " style="width:150px;margin-left: 15px ">
-                                                    <p class="bg-light " style="margin-top:-30px ">STUDENT INFO</p>
+                                                <div class="text-center" style="width:150px;margin-left: 15px ">
+                                                    <p class="bg-light" style="margin-top:-30px ">STUDENT INFO</p>
                                                 </div>
                                                 <div class="form-row ">
-                                                    <div class="col-md mb-3">
-                                                        <span>LRN</span>
-                                                        <input name="guardian " type="text" class="form-control shadow" placeholder="LRN" value="" required>
+                                                <div class="col-md-4 mb-3">
+                                                        <span>ID Number</span>
+                                                        <input id = "idnumber" name = "idnumber"  type="text" class="form-control shadow" placeholder="ID NUmber" readonly>
                                                     </div>
-                                                    <div class="col-md mb-3 ">
-                                                        <span>Student Type</span>
-                                                        <select name="type" class="custom-select mr-sm-2 shadow">
-                                                        <option selected>........</option>
-                                                        <option value="JHS">JHS</option>
-                                                        <option value="SHS">SHS</option>
-                                                        </select>
+                                                    <div class="col-md-5 mb-3">
+                                                        <span>LRN</span>
+                                                        <input id = "lrn" name = "lrn" type="text" class="form-control shadow" placeholder="LRN" required>
                                                     </div>
                                                 </div>
                                                 <div class="form-row ">
                                                     <div class="col-md mb-3">
                                                         <span>First Name</span>
-                                                        <input name="guardian " type="text" class="form-control shadow" placeholder="First Name" value="" required>
+                                                        <input id = "fname" name="fname" type="text" class="form-control shadow" placeholder="First Name" value="" required>
                                                     </div>
                                                     <div class="col-md mb-3 ">
                                                         <span>Last Name</span>
-                                                        <input name="guardian " type="text" class="form-control shadow" placeholder="Last Name" value="" required>
+                                                        <input id = "lname" name="lname" type="text" class="form-control shadow" placeholder="Last Name" value="" required>
                                                     </div>
                                                     <div class="col-md mb-3 ">
                                                         <span>Middle Name</span>
-                                                        <input name="guardian " type="text" class="form-control shadow" placeholder="Middle Name" value="" required>
+                                                        <input id = "mname" name="mname" type="text" class="form-control shadow" placeholder="Middle Name" value="" required>
                                                     </div>
                                                 </div>
                                                 <div class="form-row ">
                                                     <div class="col-md-3 mb-3 ">
                                                         <span>Age</span>
-                                                        <input name="guardian" type="text" class="form-control shadow" placeholder="Age" value="" required>
+                                                        <input id = "age" name="age" type="text" class="form-control shadow" placeholder="Age" value="" required>
                                                     </div>
                                                     <div class="col-md-4 mb-3">
                                                         <span>Gender</span>
-                                                        <select name="gender" class="custom-select mr-sm-2 shadow">
+                                                        <select id = "gender" name="gender" class="custom-select mr-sm-2 shadow">
                                                         <option selected>........</option>
-                                                        <option value="Male">Male</option>
-                                                        <option value="Female">Female</option>
+                                                        <option value="MALE">MALE</option>
+                                                        <option value="FEMALE">FEMALE</option>
                                                         </select>
                                                     </div>
                                                     <div class="col-md mb-3 ">
                                                         <span>Birth Date</span>
-                                                        <input name="bdate" type="date" class="form-control shadow" value="" required>
+                                                        <input id = "birthdate" name="bdate" type="date" class="form-control shadow" value="" required>
                                                     </div>
                                                 </div>
                                                 <div class="form-row ">
                                                     <div class="col-md mb-3 ">
                                                         <span>Address</span>
-                                                        <input name="guardian " type="text " class="form-control shadow" placeholder="Address" value="" required>
+                                                        <input id = "address" name="address" type="text " class="form-control shadow" placeholder="Address" value="" required>
                                                     </div>
                                                     <div class="col-md-5 mb-3 ">
                                                         <span>Nationality</span>
-                                                        <input name="guardian " type="text " class="form-control shadow" placeholder="Nationality" value="" required>
+                                                        <input id = "nationality" name="nationality" type="text " class="form-control shadow" placeholder="Nationality" value="" required>
                                                     </div>
                                                 </div>
                                                 <div class="form-row ">
                                                     <div class="col-md mb-3">
                                                         <span>Birth Place</span>
-                                                        <input name="guardian " type="text " class="form-control shadow" placeholder="Birth place" value="" required>
+                                                        <input id = "birthplace" name="bplace" type="text " class="form-control shadow" placeholder="Birth place" value="" required>
                                                     </div>
                                                     <div class="col-md mb-3">
                                                         <span>Guardian</span>
-                                                        <input name="guardian " type="text " class="form-control shadow" placeholder="Guardian" value="" required>
+                                                        <input id = "guardian" name="guardian" type="text " class="form-control shadow" placeholder="Guardian" value="" required>
                                                     </div>
                                                 </div>
                                                 <div class="form-row mb-4">
@@ -399,7 +400,7 @@
                                                             <div class="input-group-prepend ">
                                                                 <div class="input-group-text ">@</div>
                                                             </div>
-                                                            <input name="email" type="email" class="form-control shadow" placeholder="Email">
+                                                            <input id = "email" name="email" type="email" class="form-control shadow" placeholder="Email">
                                                         </div>
                                                     </div>
                                                     <div class="col-md mb-2">
@@ -408,7 +409,7 @@
                                                             <div class="input-group-prepend ">
                                                                 <div class="input-group-text "><i class="fa fa-phone"></i></div>
                                                             </div>
-                                                            <input name="number" type="text " class="form-control shadow" placeholder="Mobile Number">
+                                                            <input id = "number" name="number" type="text " class="form-control shadow" placeholder="Mobile Number">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -419,11 +420,11 @@
                                 <hr style=" background-color:black;height:1px;margin-top: 0px">
                                 <div class="d-flex justify-content-end mt-3">
                                 
-                                    <button type="submit" name="save" class="btn btn-success btn-lg mx-3 shadow"><span class="fa fa-check "></span> ENROLL</button>
+                                    <button type="submit" name="update" class="btn btn-warning btn-lg mx-3 shadow"><span class="fa fa-check "></span> UPDATE</button>
                                     <button type="button" class="btn btn-danger btn-lg mx-3 shadow" data-dismiss = "modal"><span class="fa fa-close "></span> CANCEL</button>
                                 </div>
-                                <br>
-                            </form>
+                            <br>
+                  </form>
              </div>
         </div>
     </div>
@@ -438,7 +439,7 @@
                     <h4 class="modal-title custom_align " id="Heading">Delete this entry</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="fa fa-close" aria-hidden="true"></span></button>
                 </div>
-                <form action="dashprocess.php" method="POST">
+                <form action="studententry.php" method="POST">
                     <div class="modal-body ">
                         <input type="hidden" name="deleteId" id="deleteId">
                         <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Are you sure you want to delete this Record?</div>
@@ -454,7 +455,12 @@
         </div>
     </div>
 <!-- ************************************************************************************************* -->
-
+           <!-- ************************************************ -->
+           <!-- use to prompt alert -->
+            <div>
+                <input id="alert" type="hidden" value="<?php echo $_SESSION['message'] ?>">
+                <?php $_SESSION['message'] = "";?>
+            </div>
 
         <script>
             // Script to open and close sidebar
@@ -488,6 +494,122 @@
                     readURL(this);
                 });
             });
+
+            $(document).ready(function() {
+                var readURL = function(input) {
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function(e) {
+                            $('.viewavatar').attr('src', e.target.result);
+                        }
+
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+                $(".file-upload ").on('change', function() {
+                    readURL(this);
+                });
+            });
+
+             $(document).ready(function() {
+                    let alert = $('#alert').val();
+                    if (alert == 'save') {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'SAVED SUCCESSFULLY!',
+                            showConfirmButton: false,
+                            timer: 1000
+                        });
+                    } else if (alert == 'delete') {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'DELETED SUCCESSFULLY!',
+                            showConfirmButton: false,
+                            timer: 1000
+                        });
+                    } else if (alert == 'updated') {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'UPDATED SUCCESSFULLY!',
+                            showConfirmButton: false,
+                            timer: 1000
+                        });
+                       
+                    }
+                    
+                });
+
+
+            
+                $(document).ready(function() {
+                    $('.view').on('click', function() {
+                        $tr = $(this).closest('tr');
+                        let data = $tr.children("td").map(function() {
+                            return $(this).text()
+                        }).get();
+                        
+                        if (data[11] == "") {
+                            $('.viewavatar').attr('src', "../../src/uploads/defaulticon.png");
+                        } else {
+                            $('.viewavatar').attr('src', "../../src/uploads/"+ data[11]);
+                        }
+                        $('#oldimage').val(data[11]);
+                        $('#idnumber').val(data[0]);
+                        $('#lrn').val(data[10]);
+                        $('#type').val(data[12]);
+                        $('#fname').val(data[7]);
+                        $('#lname').val(data[8]);
+                        $('#mname').val(data[9]);
+                        $('#age').val(data[2]);
+                        $('#gender').val(data[3]);
+                        $('#birthdate').val(data[4]);
+                        $('#nationality').val(data[5]);
+                        $('#birthplace').val(data[16]);
+                        $('#guardian').val(data[14]);
+                        $('#email').val(data[13]);
+                        $('#number').val(data[6]);
+                        $('#address').val(data[15]);
+                    });
+
+                });
+
+
+        function search() {
+            var input, filter, table, tr, td0, td1, td2, i, txtValue0, txtValue1, txtValue2;
+            filter = $("#searchInput:text").val().toUpperCase();
+            table = document.getElementById("studentTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td0 = tr[i].getElementsByTagName("td")[0];
+                td1 = tr[i].getElementsByTagName("td")[1];
+                if (td0 || td1) {
+                    txtValue0 = td0.textContent || td0.innerText;
+                    txtValue1 = td1.textContent || td1.innerText;
+                    if (txtValue0.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    }else if (txtValue1.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    }else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+                $(document).ready(function() {
+                    $('.delete').on('click', function() {
+                        $tr = $(this).closest('tr');
+                        let data = $tr.children("td ").map(function() {
+                            return $(this).text();
+                        }).get();
+                        $('#deleteId').val(data[0])
+                    });
+
+                });
         </script>
 
 </body>

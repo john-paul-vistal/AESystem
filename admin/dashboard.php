@@ -22,8 +22,13 @@
 </head>
 
 <body style="background-color:rgb(233, 233, 233)">
+
+    <?php
+    $mysqli = new mysqli('localhost','root','','enrollmentsystem') or die(mysqli_error($msqli));
+    $result = $mysqli->query("SELECT COUNT(*) FROM student") or die($mysqli->error);
+    ?>
+
     <!-- Navigation Header -->
-    
     <nav class="navbar  fixed-top bg-dark">
     <img class="navar-brand p-1" src="../src/icon/logo.png" alt="LOGO" style="width: 50px;height:50px;">
         <form class="form-inline">
@@ -75,7 +80,7 @@
             <button  onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>DASHBOARD</button> 
             <button class="collapse w3-bar-item w3-button w3-padding" data-toggle="collapse" data-target="#transact"><i class="fa fa-tasks fa-fw w3-margin-right"></i>TRANSACTION</i><i style = "float:right" class = "fa fa-angle-down"></i></button>
                 <ul class="sub-menu collapse bg-secondary text-white" id="transact" style = "padding-left:15px">
-                  <a style = "text-decoration:none" href="#" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fa fa-angle-right fa-fw"></i>ENROLLMENT</a>
+                  <a href = "enrollmentModule/enrollment.php" style = "text-decoration:none" href="#" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fa fa-angle-right fa-fw"></i>ENROLLMENT</a>
                   <a style = "text-decoration:none" href="#" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fa fa-angle-right fa-fw"></i>SCHEDULE</a>
                 </ul>
             <button class="collapse w3-bar-item w3-button w3-padding" data-toggle="collapse" data-target="#dataentry"><i class="fa fa-file-alt fa-fw w3-margin-right"></i>DATA ENTRY</i><i style = "float:right" class = "fa fa-angle-down"></i></button>
@@ -108,8 +113,9 @@
                 </div>
                 <div class="row">
                     <?php
+                    $row = $result->fetch_assoc();              
                     $bg = array("bg-info","bg-success", "bg-primary","bg-warning");
-                    $values = array("0","0","2020-2021","0");
+                    $values = array($row['COUNT(*)'],"0","2020-2021","0");
                     $title = array("TOTAL STUDENTS","TOTAL ENROLLED","SCHOOL YEAR","TOTAL TEACHER");
                     $icon = array("fa-group","fa-file-alt","fa-calendar-alt","fa-chalkboard-teacher");
                         for($i = 0;$i < 4;$i++){
